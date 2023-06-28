@@ -11,18 +11,14 @@ class Quiz extends StatefulWidget {
   }
 }
 
-class _QuizState extends State<Quiz> {
-  Widget? currentActiveScreen;
+enum ActiveScreenName { startScreen, questionsScreen }
 
-  @override
-  void initState() {
-    currentActiveScreen = StartScreen(switchScreen);
-    super.initState();
-  }
+class _QuizState extends State<Quiz> {
+  var currentActiveScreen = ActiveScreenName.startScreen;
 
   void switchScreen() {
     setState(() {
-      currentActiveScreen = const QuestionsScreen();
+      currentActiveScreen = ActiveScreenName.questionsScreen;
     });
   }
 
@@ -42,7 +38,9 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: currentActiveScreen,
+          child: currentActiveScreen == ActiveScreenName.startScreen
+              ? StartScreen(switchScreen)
+              : const QuestionsScreen(),
         ),
       ),
     );
