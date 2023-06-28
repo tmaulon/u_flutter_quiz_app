@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
+  const StartScreen(this.onStartQuiz, {super.key});
+
+  final void Function() onStartQuiz;
 
   startQuiz() {
-    print('Starting quiz ...');
-    debugPrint('Received click');
+    debugPrint('Starting quiz ...');
+    onStartQuiz();
   }
 
   @override
@@ -33,7 +35,11 @@ class StartScreen extends StatelessWidget {
           const Text(
             "Learn Flutter the fun way!",
             style: TextStyle(
-                fontSize: 24, color: Color.fromARGB(255, 30, 144, 121)),
+              fontSize: 50,
+              color: Color.fromARGB(255, 30, 144, 121),
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 40,
