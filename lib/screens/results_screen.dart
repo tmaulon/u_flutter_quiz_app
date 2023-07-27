@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:u_flutter_quiz_app/data/questions.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
@@ -12,6 +13,21 @@ class ResultsScreen extends StatelessWidget {
 
   int getValidAnswersLength() {
     return 0;
+  }
+
+  List<Map<String, Object>> getQuizSummary() {
+    final List<Map<String, Object>> summary = [];
+
+    for (var i = 0; i < choosenAnswers.length; i++) {
+      summary.add({
+        "question_index": i,
+        "question": questions[i].text,
+        "valid_answer": questions[i].answers[0],
+        "user_awser": choosenAnswers[i],
+      });
+    }
+
+    return summary;
   }
 
   @override
