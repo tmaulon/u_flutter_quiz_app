@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:u_flutter_quiz_app/data/questions.dart';
 import 'package:u_flutter_quiz_app/screens/questions_screen.dart';
 import 'package:u_flutter_quiz_app/screens/start_screen.dart';
 
@@ -15,7 +16,7 @@ enum ActiveScreenName { startScreen, questionsScreen }
 
 class _QuizState extends State<Quiz> {
   var currentActiveScreen = ActiveScreenName.startScreen;
-  final List<String> answers = [];
+  List<String> selectedAnswers = [];
 
   void switchScreen() {
     setState(() {
@@ -23,8 +24,21 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void swhowResultsScreen() {
+    setState(() {
+      currentActiveScreen = ActiveScreenName.startScreen;
+    });
+  }
+
   void chooseAnswer(String answer) {
-    answers.add(answer);
+    selectedAnswers.add(answer);
+
+    if (selectedAnswers.length == questions.length) {
+      selectedAnswers.clear();
+      swhowResultsScreen();
+    } else {
+      return;
+    }
   }
 
   @override
