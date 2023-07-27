@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:u_flutter_quiz_app/components/questions_summary.dart';
 import 'package:u_flutter_quiz_app/data/questions.dart';
+import 'package:u_flutter_quiz_app/models/question_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
@@ -15,16 +17,12 @@ class ResultsScreen extends StatelessWidget {
     return 0;
   }
 
-  List<Map<String, Object>> getQuizSummary() {
-    final List<Map<String, Object>> summary = [];
+  List<QuestionSummary> getQuizSummary() {
+    final List<QuestionSummary> summary = [];
 
     for (var i = 0; i < choosenAnswers.length; i++) {
-      summary.add({
-        "question_index": i,
-        "question": questions[i].text,
-        "valid_answer": questions[i].answers[0],
-        "user_awser": choosenAnswers[i],
-      });
+      summary.add(QuestionSummary(
+          i, questions[i].text, questions[i].answers[0], choosenAnswers[i]));
     }
 
     return summary;
@@ -64,15 +62,7 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Text(
-              "List of answers...",
-              style: GoogleFonts.lato(
-                fontSize: 24,
-                color: const Color.fromARGB(255, 30, 144, 121),
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            QuizSummary(quizSummary: getQuizSummary()),
             // ListView(
             //   padding: const EdgeInsets.all(8),
             //   children: <Widget>[
