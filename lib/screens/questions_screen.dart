@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:u_flutter_quiz_app/components/answer_button.dart';
+import 'package:u_flutter_quiz_app/components/question_text.dart';
 import 'package:u_flutter_quiz_app/data/questions.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -32,14 +33,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                currentQuestion.text,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 30, 144, 121),
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+              QuestionText(
+                question: currentQuestion.text,
               ),
               const SizedBox(
                 height: 30,
