@@ -15,6 +15,7 @@ enum ActiveScreenName { startScreen, questionsScreen }
 
 class _QuizState extends State<Quiz> {
   var currentActiveScreen = ActiveScreenName.startScreen;
+  final List<String> answers = [];
 
   void switchScreen() {
     setState(() {
@@ -22,12 +23,16 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer) {
+    answers.add(answer);
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget currentActiveScreenWidget = StartScreen(switchScreen);
 
     if (currentActiveScreen == ActiveScreenName.questionsScreen) {
-      currentActiveScreenWidget = const QuestionsScreen();
+      currentActiveScreenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);
     }
 
     return MaterialApp(
