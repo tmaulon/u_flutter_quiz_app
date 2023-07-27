@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.onRestartQuiz});
+  const ResultsScreen({
+    super.key,
+    required this.onRestartQuiz,
+    required this.choosenAnswers,
+  });
   final void Function() onRestartQuiz;
+  final List<String> choosenAnswers;
+
+  int getValidAnswersLength() {
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,7 @@ class ResultsScreen extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "You answered X out of Y questions correctly!",
+              "You answered ${getValidAnswersLength()} out of ${choosenAnswers.length} questions correctly!",
               style: GoogleFonts.lato(
                 fontSize: 24,
                 color: const Color.fromARGB(255, 30, 144, 121),
