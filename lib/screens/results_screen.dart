@@ -13,10 +13,6 @@ class ResultsScreen extends StatelessWidget {
   final void Function() onRestartQuiz;
   final List<String> choosenAnswers;
 
-  int getValidAnswersLength() {
-    return 0;
-  }
-
   List<QuestionSummary> getQuizSummary() {
     final List<QuestionSummary> summary = [];
 
@@ -30,6 +26,13 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quizSummary = getQuizSummary();
+    final questionsLength = questions.length;
+    final validAnswersLength = quizSummary
+        .where((questionSummary) =>
+            questionSummary.user_awser == questionSummary.valid_answer)
+        .length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -51,7 +54,7 @@ class ResultsScreen extends StatelessWidget {
               height: 30,
             ),
             Text(
-              "You answered ${getValidAnswersLength()} out of ${choosenAnswers.length} questions correctly!",
+              "You answered $validAnswersLength out of $questionsLength questions correctly!",
               style: GoogleFonts.lato(
                 fontSize: 24,
                 color: const Color.fromARGB(255, 30, 144, 121),
@@ -62,7 +65,7 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            QuizSummary(quizSummary: getQuizSummary()),
+            QuizSummary(quizSummary: quizSummary),
             // ListView(
             //   padding: const EdgeInsets.all(8),
             //   children: <Widget>[
