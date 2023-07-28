@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:u_flutter_quiz_app/components/questions_summary.dart';
+import 'package:u_flutter_quiz_app/components/quiz_summary/quiz_summary.dart';
 import 'package:u_flutter_quiz_app/data/questions.dart';
 import 'package:u_flutter_quiz_app/models/question_summary.dart';
 
@@ -13,7 +13,7 @@ class ResultsScreen extends StatelessWidget {
   final void Function() onRestartQuiz;
   final List<String> choosenAnswers;
 
-  List<QuestionSummary> getQuizSummary() {
+  List<QuestionSummary> get quizSummary {
     final List<QuestionSummary> summary = [];
 
     for (var i = 0; i < choosenAnswers.length; i++) {
@@ -24,15 +24,14 @@ class ResultsScreen extends StatelessWidget {
     return summary;
   }
 
+  int get questionsLength => questions.length;
+  int get validAnswersLength => quizSummary
+      .where((questionSummary) =>
+          questionSummary.user_awser == questionSummary.valid_answer)
+      .length;
+
   @override
   Widget build(BuildContext context) {
-    final quizSummary = getQuizSummary();
-    final questionsLength = questions.length;
-    final validAnswersLength = quizSummary
-        .where((questionSummary) =>
-            questionSummary.user_awser == questionSummary.valid_answer)
-        .length;
-
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -66,29 +65,6 @@ class ResultsScreen extends StatelessWidget {
               height: 30,
             ),
             QuizSummary(quizSummary: quizSummary),
-            // ListView(
-            //   padding: const EdgeInsets.all(8),
-            //   children: <Widget>[
-            //     Container(
-            //       height: 5,
-            //       width: 5,
-            //       color: Colors.amber[600],
-            //       child: const Center(child: Text('Entry A')),
-            //     ),
-            //     Container(
-            //       height: 5,
-            //       width: 5,
-            //       color: Colors.amber[500],
-            //       child: const Center(child: Text('Entry B')),
-            //     ),
-            //     Container(
-            //       height: 5,
-            //       width: 5,
-            //       color: Colors.amber[100],
-            //       child: const Center(child: Text('Entry C')),
-            //     ),
-            //   ],
-            // ),
             const SizedBox(
               height: 30,
             ),
